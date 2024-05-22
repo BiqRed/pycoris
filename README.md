@@ -37,7 +37,7 @@ pip install git+https://github.com/BiqRed/pycoris
 7. **Creation of the main Pycoris class for creating and configuring the admin panel.**
 8. **Writing minimal documentation for the framework.**
 9. **Testing the project and fixing issues.**
-### :gear: Release версия (0.1)
+### :gear: Release Version (0.1)
 1. **Writing tests.**
 2. **Improving base classes for more comfortable interaction with interfaces.**
 3. **Lowering the minimum Python version to 3.8 and dependencies.**
@@ -47,7 +47,7 @@ pip install git+https://github.com/BiqRed/pycoris
 7. **Writing full documentation.**
 8. **Launching a demo version of the admin panel.**
 9. **...**
-### :shield: Stable версия (1.0)
+### :shield: Stable Version (1.0)
 1. **Separating the Tabler interaction interface into a separate Python package.**
 2. **...**
 
