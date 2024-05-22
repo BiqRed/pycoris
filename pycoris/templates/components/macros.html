@@ -1,0 +1,12 @@
+{% macro avatar(user, size='sm', extra_classes='') %}
+  {% set avatar_size = "avatar-" + size if size else '' %}
+  {% if user.avatar%}
+    <span class="avatar {{ avatar_size }}" style="background-image: url({{ user.avatar }})"></span>
+  {% else %}
+    {% if settings.default_user_avatar %}
+      <span class="avatar {{ avatar_size }}" style="background-image: url({{ settings.default_user_avatar }})"></span>
+    {% else %}
+      <span class="avatar {{ avatar_size }} {{ extra_classes }} dark-theme">{{ user.two_letters }}</span>
+    {% endif %}
+  {% endif %}
+{% endmacro %}

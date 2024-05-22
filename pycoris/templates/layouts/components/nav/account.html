@@ -1,0 +1,61 @@
+{% from "components/icons.html" import icon %}
+
+<!-- Account -->
+<div class="nav-item dropdown">
+  <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
+     aria-label="Open user menu">
+    {{ avatar(user, 'sm') }}
+    <div class="d-none d-xl-block ps-2">
+      <div>
+        {% if user.first_name and user.last_name %}
+          {{ user.first_name }} {{ user.last_name }}
+        {% else %}
+          {{ user.username }}
+        {% endif %}
+      </div>
+      <div class="mt-1 small text-muted">
+        {% if user.role %}{{ user.role }}{% endif %}
+        {% if user.superuser %}({{ _('Super') }}){% endif %}</div>
+    </div>
+  </a>
+  <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow dark-theme">
+    <a href="{{ settings.root_url }}/admins/{{ user.id }}" class="dropdown-item">
+      <div class="me-2">{{ icon("user-circle") }}</div>
+      {{ _("Profile") }}
+    </a>
+    <a href="#" class="dropdown-item d-md-none d-lg-none d-xl-none">
+      <div class="me-2">{{ icon("bell") }}</div>
+      {{ _("Notifications") }}
+      <span class="badge badge-pill badge-outline text-red badge-count badge-count ms-2">4</span>
+      <span class="badge bg-red badge-many ms-2 d-none"></span>
+    </a>
+    <a href="?theme=dark" class="dark-theme-hide dropdown-item d-md-none d-lg-none d-xl-none"
+       title="{{ _('Enable dark mode') }}"
+       data-bs-toggle="tooltip" data-bs-placement="bottom">
+      <div class="me-2">{{ icon("moon") }}</div>
+      {{ _("Dark mode") }}
+    </a>
+    <a href="?theme=light" class="light-theme-hide dropdown-item d-md-none d-lg-none d-xl-none"
+       title="{{ _('Enable light mode') }}"
+       data-bs-toggle="tooltip" data-bs-placement="bottom">
+      <div class="me-2">{{ icon("sun") }}</div>
+      {{ _("Light mode") }}
+    </a>
+    <a href="{{ settings.root_url }}/admins/{{ user.id }}/settings?language"
+       class="dropdown-item d-md-none d-lg-none d-xl-none">
+      <div class="me-2">{{ icon('language') }}</div>
+      {{ _('Language') }}
+    </a>
+
+    <div class="dropdown-divider"></div>
+
+    <a href="{{ settings.root_url }}/admins/{{ user.id }}/settings" class="dropdown-item">
+      <div class="me-2">{{ icon("settings") }}</div>
+      {{ _("Settings") }}
+    </a>
+    <a href="#" class="dropdown-item">
+      <div class="me-2">{{ icon("logout") }}</div>
+      {{ _("Logout") }}
+    </a>
+  </div>
+</div>

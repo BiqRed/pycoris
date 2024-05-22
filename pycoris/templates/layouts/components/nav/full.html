@@ -1,0 +1,20 @@
+<header class="navbar navbar-expand-md d-print-none">
+  <div class="container-xl">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu"
+            aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+      <a href="{{ settings.root_url }}">
+        <img src="{{ settings.logo_url }}" width="110" height="32" alt="{{ settings.project_name }}"
+             class="navbar-brand-image dark-theme-hide">
+        <img src="{{ settings.logo_dark_url }}" width="110" height="32" alt="{{ settings.project_name }}"
+             class="navbar-brand-image light-theme-hide">
+      </a>
+    </h1>
+    <div class="navbar-nav flex-row order-md-last">
+      {% include "layouts/components/nav/actions.html" %}
+      {% include "layouts/components/nav/account.html" %}
+    </div>
+  </div>
+</header>

@@ -1,0 +1,57 @@
+{% from "components/icons.html" import icon %}
+
+<div class="nav-item dropdown d-none d-md-flex me-3">
+  <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1" aria-label={{ _("Show notifications") }}>
+    {{ icon("bell") }}
+    <span class="badge badge-pill bg-red badge-notification badge-count">34</span>
+    <span class="badge bg-red visually-hidden badge-many"></span>
+  </a>
+  <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-end dropdown-menu-card">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">{{ _('Last updates') }}</h3>
+      </div>
+      <div class="list-group list-group-flush list-group-hoverable">
+        {% for notification in notifications %}
+          <div class="list-group-item">
+            {% if notification.template %}
+              {% include notification.template %}
+            {% elif notification.html %}
+              {{ notification.html | safe }}
+            {% else %}
+              <div class="row align-items-center">
+                <div class="col-auto">
+                  {% if notification.user %}
+                    <div class="d-block mt-n1">
+                      {{ avatar(notification.user, '') }}
+                    </div>
+                  {% else %}
+                    <span class="status-dot d-block"></span>
+                  {% endif %}
+                </div>
+                <div class="col text-truncate">
+                  <div class="d-flex justify-content-between">
+                    <a href="{{ notification.link or '#' }}" class="text-body d-block">{{ notification.title }}</a>
+                    <small class="text-muted">
+                      <script>
+                        document.write(moment("{{ notification.at }}").fromNow())
+                      </script>
+                    </small>
+                  </div>
+                  <div class="d-block text-muted text-truncate mt-n1">
+                    {{ notification.desc }}
+                  </div>
+                </div>
+                <div class="col-auto">
+                  <a href="#" class="list-group-item-actions">{{ icon("trash") }}</a>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+{% from "components/icons.html" import icon %}
+
+<div class="d-none d-md-flex">
+  <!-- Theme mode -->
+  <a href="?theme=dark" class="nav-link px-0 dark-theme-hide" title="{{ _('Enable dark mode') }}"
+     data-bs-toggle="tooltip" data-bs-placement="bottom">
+    {{ icon("moon") }}
+  </a>
+  <a href="?theme=light" class="nav-link px-0 light-theme-hide" title="{{ _('Enable light mode') }}"
+     data-bs-toggle="tooltip" data-bs-placement="bottom">
+    {{ icon("sun") }}
+  </a>
+  <!-- Chooser language -->
+  <div class="nav-item dropdown d-none d-md-flex">
+    <a href="#" class="nav-link px-0" data-bs-toggle="dropdown" tabindex="-1" aria-label="{{ _('Language chooser') }}"
+       aria-expanded="false">
+      {{ icon('language') }}
+    </a>
+    <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+      {% for language in languages %}
+        <a class="dropdown-item" href="?lang={{ language.code }}">
+          <span class="flag flag-country-{{ language.flag_code }} me-2"></span>
+          <div class="text-capitalize"> {{ language.name }}</div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+  <!-- Notifications -->
+  {% include "layouts/components/nav/notifications.html" %}
+</div>
