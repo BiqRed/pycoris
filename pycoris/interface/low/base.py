@@ -1,8 +1,8 @@
+from functools import cached_property
 from typing import Union, List, Annotated, Dict, Optional
 from typing_extensions import Self
 
-from pydantic import BaseModel, Field
-
+from pydantic import BaseModel, Field, PrivateAttr, computed_field
 
 TagHTML = Annotated[str, 'Must be ended with `_tag`. Example: `bold_tag = "strong"`']
 
@@ -32,7 +32,8 @@ class BaseHTML(BaseModel):
         """
         raise NotImplementedError
 
-    @property
+    @computed_field
+    @cached_property
     def validated(self) -> str:
         """
         Invoking class normalization, validating it, and returning formatted HTML code
@@ -91,7 +92,15 @@ class ElementHTML(BaseHTML):
     inner: Union[str, 'ElementHTML', List[Union['ElementHTML', str]]] = ''
     classes: List[ClassHTML] = []
     styles: List[StyleCSS] = []
-    extra_attributes: Dict[str, Optional[str]] = {}
+    extra: Dict[str, Optional[str]] = {}
+
+    dark_theme: bool = True
+
+    def add_class(self, cls: Union[ClassHTML, str]) -> Self:
+        if isinstance(cls, str):
+            cls = ClassHTML.to_instance(cls)
+        self.classes.append(cls)
+        return self
 
     def set_classes(self, value: Union[ClassHTML, List[Union[ClassHTML, str]], str, None]) -> Self:
         if not value:
@@ -109,6 +118,14 @@ class ElementHTML(BaseHTML):
                     self.classes.append(cls)
         return self
 
+    def add_style(self, style: Union[StyleCSS, Dict[str, str], str]) -> Self:
+        if isinstance(style, str):
+            style = StyleCSS.to_instance(style)
+        if isinstance(style, dict):
+            style = StyleCSS(prop=style['prop'], value=style['value'])
+        self.styles.append(style)
+        return self
+
     def set_styles(self, value: Union[StyleCSS, List[Union[StyleCSS]], str, None]) -> Self:
         if not value:
             self.styles = []
@@ -123,6 +140,18 @@ class ElementHTML(BaseHTML):
                     self.styles.extend(StyleCSS.to_instance(s) for s in s.strip().split(';') if s.strip())
                 elif isinstance(s, StyleCSS):
                     self.styles.append(s)
+        return self
+
+    def update_empty_inner(self, inner: Union[str, 'ElementHTML', List[Union['ElementHTML', str]]]) -> Self:
+        if not self.inner:
+            self.inner = inner
+        return self
+
+    def join(self, *elements: 'ElementHTML') -> Self:
+        for element in elements:
+            self.classes.extend(element.classes)
+            self.styles.extend(element.styles)
+            self.extra.update(element.extra)
         return self
 
     @classmethod
@@ -146,6 +175,8 @@ class ElementHTML(BaseHTML):
             return inner
 
     def _process_classes(self) -> str:
+        if self.dark_theme:
+            self.add_class('dark-theme')
         classes = ' '.join([cls.validated for cls in self.classes])
         return f' class="{classes}"' if classes else ''
 
@@ -155,7 +186,7 @@ class ElementHTML(BaseHTML):
 
     def _process_attributes(self) -> str:
         attributes = ''
-        for attr, value in self.extra_attributes.items():
+        for attr, value in self.extra.items():
             if value:
                 attributes += f' {attr}="{value}"'
             else:

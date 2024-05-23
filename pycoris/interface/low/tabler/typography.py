@@ -34,65 +34,65 @@ class Semantic(ElementHTML):
     """
 
     i18n: bool = False
-    t_i18n_tag: TagHTML = 'abbr'
+    i18n_tag: TagHTML = 'abbr'
 
     bold: bool = False
-    t_bold_tag: TagHTML = 'strong'
+    bold_tag: TagHTML = 'strong'
 
     citation: bool = False
-    t_citation_tag: TagHTML = 'cite'
+    citation_tag: TagHTML = 'cite'
 
     code: bool = False
-    t_code_tag: TagHTML = 'code'
+    code_tag: TagHTML = 'code'
 
     deleted: bool = False
-    t_deleted_tag: TagHTML = 'del'
+    deleted_tag: TagHTML = 'del'
 
     emphasis: bool = False
-    t_emphasis_tag: TagHTML = 'em'
+    emphasis_tag: TagHTML = 'em'
 
     italic: bool = False
-    t_italic_tag: TagHTML = 'i'
+    italic_tag: TagHTML = 'i'
 
     inserted: bool = False
-    t_inserted_tag: TagHTML = 'ins'
+    inserted_tag: TagHTML = 'ins'
 
     kbd: bool = False
-    t_kbd_tag: TagHTML = 'kbd'
+    kbd_tag: TagHTML = 'kbd'
 
     mark: bool = False
-    t_mark_tag: TagHTML = 'mark'
+    mark_tag: TagHTML = 'mark'
 
     strikethrough: bool = False
-    t_strikethrough_tag: TagHTML = 's'
+    strikethrough_tag: TagHTML = 's'
 
     sample: bool = False
-    t_sample_tag: TagHTML = 'samp'
+    sample_tag: TagHTML = 'samp'
 
     sub: bool = False
-    t_sub_tag: TagHTML = 'sub'
+    sub_tag: TagHTML = 'sub'
 
     sup: bool = False
-    t_sup_tag: TagHTML = 'sup'
+    sup_tag: TagHTML = 'sup'
 
     time: bool = False
-    t_time_tag: TagHTML = 'time'
+    time_tag: TagHTML = 'time'
 
     underline: bool = False
-    t_underline_tag: TagHTML = 'u'
+    underline_tag: TagHTML = 'u'
 
     var: bool = False
-    t_var_tag: TagHTML = 'var'
+    var_tag: TagHTML = 'var'
 
     def normalize(self) -> None:
         tags = self.model_dump()
-        keys = [k.replace('_tag', '')[2:] for k, v in tags.items() if k.endswith('_tag') and k.startswith('t_')]
+        keys = [k.replace('_tag', '') for k, v in tags.items() if k.endswith('_tag')]
         for key in keys:
             if key in tags and tags[key]:
-                self.tag = tags[f't_{key}_tag']
+                self.tag = tags[f'{key}_tag']
 
                 if key == 'i18n':
-                    self.extra_attributes.update({'title': 'Internationalization'})
+                    self.extra['title'] = 'Internationalization'
 
                 break
 

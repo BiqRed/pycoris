@@ -41,7 +41,7 @@
       <div class="me-2">{{ icon("sun") }}</div>
       {{ _("Light mode") }}
     </a>
-    <a href="{{ settings.root_url }}/admins/{{ user.id }}/settings?language"
+    <a href="{{ settings.root_url }}/admins/{{ user.id }}#language?language"
        class="dropdown-item d-md-none d-lg-none d-xl-none">
       <div class="me-2">{{ icon('language') }}</div>
       {{ _('Language') }}
@@ -49,7 +49,7 @@
 
     <div class="dropdown-divider"></div>
 
-    <a href="{{ settings.root_url }}/admins/{{ user.id }}/settings" class="dropdown-item">
+    <a href="{{ settings.root_url }}/admins/{{ user.id }}#settings" class="dropdown-item">
       <div class="me-2">{{ icon("settings") }}</div>
       {{ _("Settings") }}
     </a>

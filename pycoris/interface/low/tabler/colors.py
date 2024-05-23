@@ -10,6 +10,16 @@ class Color(Enum):
     Source: https://tabler.io/docs/base/colors
     """
 
+    # Bootstrap colors
+    PRIMARY = ('primary', '#007bff')
+    SECONDARY = ('secondary', '#6c757d')
+    SUCCESS = ('success', '#28a745')
+    INFO = ('info', '#17a2b8')
+    WARNING = ('warning', '#ffc107')
+    DANGER = ('danger', '#dc3545')
+    LIGHT = ('light', '#f8f9fa')
+    DARK = ('dark', '#343a40')
+
     # Base colors
     BLUE = ('blue', '#0054a6')
     AZURE = ('azure', '#4299e1')

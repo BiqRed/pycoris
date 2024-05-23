@@ -4,29 +4,7 @@ from pycoris.interface.low.base import ClassHTML, ElementHTML
 from pycoris.interface.low.tabler.colors import Color
 
 
-class Badge(ClassHTML):
-    bg_color: Optional[Color] = None
-    text_color: Optional[Color] = None
-
-    secondary: bool = False
-    outline: bool = False
-    pill: bool = False
-
-    def normalize(self) -> None:
-        self.name = 'badge'
-        if self.bg_color:
-            self.name += f' bg-{self.bg_color.name}'
-        if self.text_color:
-            self.name += f' text-{self.text_color.name}'
-        if self.secondary:
-            self.name += ' bg-secondary'
-        if self.outline:
-            self.name += ' badge-outline'
-        if self.pill:
-            self.name += ' badge-pill'
-
-
-class BadgeElement(ElementHTML):
+class Badge(ElementHTML):
     tag: str = 'span'
 
     bg_color: Optional[Color] = None
@@ -37,14 +15,14 @@ class BadgeElement(ElementHTML):
     pill: bool = False
 
     def normalize(self) -> None:
-        self.classes.append(ClassHTML(name='badge'))
+        self.add_class('badge')
         if self.bg_color:
-            self.classes.append(ClassHTML(name=f'bg-{self.bg_color.name}'))
+            self.add_class(self.bg_color.bg)
         if self.text_color:
-            self.classes.append(ClassHTML(name=f'text-{self.text_color.name}'))
+            self.add_class(self.text_color.text)
         if self.secondary:
-            self.classes.append(ClassHTML(name='bg-secondary'))
+            self.add_class('bg-secondary')
         if self.outline:
-            self.classes.append(ClassHTML(name='badge-outline'))
+            self.add_class('badge-outline')
         if self.pill:
-            self.classes.append(ClassHTML(name='badge-pill'))
+            self.add_class('badge-pill')

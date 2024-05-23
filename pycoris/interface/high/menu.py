@@ -1,30 +1,17 @@
-from typing import Collection
+from typing import Union
 
-from pydantic import BaseModel
-
-
-class BaseMenuItem(BaseModel):
-    async def on_click(self):
-        pass
+from pycoris.interface.high.base import Base
+from pycoris.interface.low.tabler.dropdowns import (Dropdown, DropdownDivider, DropdownHeader,
+                                                    DropdownItem, DropdownMenu, DropdownToggle)
 
 
-class Menu(BaseModel):
-    items: Collection[BaseMenuItem]
+class MenuButton(Base):
+    def render(self) -> str:
+        raise self.validated
 
 
-class MenuItem(BaseMenuItem):
-    name: str
-    icon: str
+class Menu(Base):
 
-    url: str = None
+    def render(self) -> str:
+        raise self.validated
 
-
-class MenuDropItem(BaseMenuItem):
-    name: str
-    icon: str
-    items: Collection[MenuItem]
-
-
-class MenuDivider(BaseMenuItem):
-    text: str = None
-    text_color: str = None
