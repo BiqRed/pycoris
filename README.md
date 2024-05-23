@@ -1,4 +1,6 @@
 # Pycoris :hibiscus:
+![Logo](https://github.com/biqred/pycoris/raw/main/assets/logo2.svg)
+
 **Pycoris** is a powerful framework for creating admin panels using only Python code with [Tabler UI](https://tabler.io/) and [FastAPI](https://fastapi.tiangolo.com/). Pycoris allows you to create web interfaces with just a few lines of code or fully customize it down to the smallest details.
 ---
 
