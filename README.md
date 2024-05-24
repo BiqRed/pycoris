@@ -13,7 +13,7 @@
 - [x] Custom implementation - *under development*
 - [ ] SQLAlchemy - *coming soon*
 - [ ] Pony ORM - *coming soon*
-- [ ] Django ORM - *в будущем, по возможности*
+- [ ] Django ORM - *coming soon*
 - [ ] SQLObject - *coming soon*
 - [ ] peewee - *coming soon*
 - [ ] other - *other popular Python ORMs*
